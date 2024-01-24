@@ -1,20 +1,25 @@
-% consult('006_Animalitos.pl').
+    % consult('006_Animalitos.pl').
 
-come(aguila, serpiente).
-come(serpiente, raton).
-come(raton, grillo).
-come(grillo, hierba).
+    come(aguila, serpiente).
+    come(serpiente, raton).
+    come(raton, grillo).
+    come(grillo, hierba).
 
-come(X, Y) :- come(X, Z), come(Z, Y).
+    come(tiburón, pez).
+    come(pez, camarón).
+    come(camarón, plancton).
 
-% forward chaining
-% aguila -> serpiente
-% serpiente -> raton
-% _________________________
-% aguila -> raton
+    come(X, Y) :- come(X, Z), come(Z, Y).
 
-% backward chaining
-% aguila ->  raton ??
-% _________________________
-% aguila -> serpiente
-% serpiente -> raton    
+    % forward chaining:
+    % aguila -> serpiente
+    % serpiente -> raton
+    % _________________________
+    % aguila -> raton
+
+
+    % backward chaining:
+    % aguila ->  raton ??
+    % _________________________
+    % aguila -> serpiente
+    % serpiente -> raton    
