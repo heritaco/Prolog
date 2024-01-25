@@ -1,0 +1,1 @@
+% consult('005_Where_is_if.pl').
