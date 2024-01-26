@@ -1,0 +1,1 @@
+% consult('010_Math.pl').

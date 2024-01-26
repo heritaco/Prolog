@@ -29,4 +29,5 @@ female(diana).
 % listing(male). = list all clauses defining the predicate male
  
 % male(X), female(Y). = Show all combinations of male and female
- 
+% se hace como un producto cartesiano
+% TENEMOS QUE PONER ; PARA QUE NOS DE TODAS LAS COMBINACIONES

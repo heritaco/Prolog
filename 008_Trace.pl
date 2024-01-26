@@ -1,0 +1,1 @@
+% consult('008_Trace.pl').

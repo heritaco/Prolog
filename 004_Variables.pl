@@ -1,23 +1,16 @@
 % consult('004_Variables.pl').
 
 % A variable is an object we are unable to name when writing a program.
- 
 % An instantiated variable is one that stands for an object.
- 
 % A variable begins with an uppercase letter or _ and can contain
- 
 % the same symbols as atoms.
  
 % The same variable name used in 2 different questions represents 2
- 
 % completely different variables.
- 
- 
 % An uninstantiated variable can be used to search for any match.
  
  
 % Return all females (Type ; to cycle through them)
- 
 % female(X). X = alice X = betsy X = diana
  
  
