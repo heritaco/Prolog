@@ -1,6 +1,5 @@
 % consult('009_Recursion.pl').  
- 
-/*
+
 parent(albert, bob).
 parent(albert, betsy).
 parent(albert, bill).
@@ -11,15 +10,15 @@ parent(alice, bill).
  
 parent(bob, carl).
 parent(bob, charlie).
-*/
  
-% Works for exact matches
+/* Works for exact matches */
  
 related(X, Y) :- parent(X, Y).
+
 % related(albert, bob). = true
  
  
-% Cycles through possible results until related returns a true
+/* Cycles through possible results until related returns a true */
  
 related(X, Y) :-
   parent(X, Z),
@@ -27,8 +26,7 @@ related(X, Y) :-
  
 % related(albert,carl). = true
  
+% parent(albert, Z). = true = Z = bob, betsy, bill
  
-% 1. parent(albert, Z). = true = Z = bob, betsy, bill
- 
-% 2. related(Z, carl). = true when Z = bob
+% related(Z, carl). = Z = bob ; Z = betsy ; Z = bill
  

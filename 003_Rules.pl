@@ -1,8 +1,8 @@
 % consult('003_Rules.pl').
 
-% Rules are used when you want to say that a fact depends on a group of facts
-% NOTE : You'll get the discontiguous predicate warning if you
-% don't keep your predicates together
+/* Rules are used when you want to say that a fact depends on a group of facts
+NOTE : You'll get the discontiguous predicate warning if you
+don't keep your predicates together */
 
 happy(albert).
 happy(alice).
@@ -10,9 +10,9 @@ happy(bob).
 happy(bill).
 with_albert(alice).
  
-% We can define the Fact that when Bob is happy he runs 
-% :- stands for if
-% albert runs if he is happy
+/*We can define the Fact that when Bob is happy he runs 
+:- stands for if
+albert runs if he is happy*/
 
 runs(albert) :- happy(albert).
 

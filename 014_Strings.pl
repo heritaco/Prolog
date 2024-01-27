@@ -1,1 +1,0 @@
-% consult ('014_Strings.pl').
