@@ -9,7 +9,7 @@
     come(pez, camarón).
     come(camarón, plancton).
 
-    come(X, Y) :- come(X, Z), come(Z, Y).
+    come(X, Y) :- come(X, Z), come(Z, Y). % regla recursiva
 
     % forward chaining:
     % aguila -> serpiente
