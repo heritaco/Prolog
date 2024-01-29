@@ -1,13 +1,13 @@
-    % consult('006_Animalitos.pl').
+    % consult('016_Forward_Backward_Chaining.pl').
 
     come(aguila, serpiente).
     come(serpiente, raton).
     come(raton, grillo).
     come(grillo, hierba).
 
-    come(tiburón, pez).
-    come(pez, camarón).
-    come(camarón, plancton).
+    come(tiburon, pez).
+    come(pez, camaron).
+    come(camaron, plancton).
 
     come(X, Y) :- come(X, Z), come(Z, Y). % regla recursiva
 
