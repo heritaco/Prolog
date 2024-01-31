@@ -1,12 +1,3 @@
-% Facts:
-
-% The start state of the problem, where 3 cannibals and 3 missionaries are on the left bank of the river, and the boat is also on the left bank.
-start_state([3,3,_,0,0]).
-
-% The goal state of the problem, where all 3 cannibals and 3 missionaries have moved to the right bank of the river, and the boat is also on the right bank.
-goal_state([0,0,_ ,3,3]).
-
-
 % Rules:
 
 % Two missionaries cross from the left bank to the right bank:
