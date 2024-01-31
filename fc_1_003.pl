@@ -1,108 +1,47 @@
-start([CL,ML,B,CR,MR]) = ([3,3,L,0,0]).
-goal([CL,ML,B,CR,MR]) = ([0,0,_,3,3]).
 
-valid([CL,ML,_,CR,MR]) :- % Valid if the number of missionaries on either side is 0 or greater than or equal to the number of cannibals on that side
-    (ML >= CL ; ML == 0), 
-    (MR >= CR ; MR == 0).
+mov(move(M, C, left), state(ML, CL, right), state(ML2, CL2, left)):-  
+ML2 is ML + M, ML2 >= 0, ML2 =< 3,
+CL2 is CL + C, CL2 >= 0, CL2 =< 3.
 
-% Move 2 missionaries from left to right
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]) :-
-    ML2 is ML - 2, % ML2 is the number of missionaries left on the left side
-    MR2 is MR + 2. % MR2 is the number of missionaries on the right side
+mov(move(M, C, right), state(ML, CL, left), state(ML2, CL2, right)):-
+ML2 is ML - M, ML2 >= 0, ML2 =< 3, 
+CL2 is CL - C, CL2 >= 0, CL2 =< 3.	 
 
-% Move 1 missionary from left to right
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]) :-
-    ML2 is ML - 1, % ML2 is the number of missionaries left on the left side
-    MR2 is MR + 1. % MR2 is the number of missionaries on the right side
+move(1,1,_).
+move(2,0,_).
+move(0,2,_).
+move(1,0,_).
+move(0,1,_).
 
-% Move 2 cannibals from left to right
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]) :-
-    CL2 is CL - 2, % CL2 is the number of cannibals left on the left side
-    CR2 is CR + 2. % CR2 is the number of cannibals on the right side
+not_valid(state(2,3, _)).
+not_valid(state(1,3, _)).
+not_valid(state(1,2, _)).
+not_valid(state(2,1, _)). 
+not_valid(state(1,0, _)).
+not_valid(state(2,0, _)).
 
-% Move 1 cannibal from left to right
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]) :-
-    CL2 is CL - 1, % CL2 is the number of cannibals left on the left side
-    CR2 is CR + 1. % CR2 is the number of cannibals on the right side
-
-% Move 1 missionary and 1 cannibal from left to right
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]) :-
-    CL2 is CL - 1, % CL2 is the number of cannibals left on the left side
-    CR2 is CR + 1, % CR2 is the number of cannibals on the right side
-    ML2 is ML - 1, % ML2 is the number of missionaries left on the left side
-    MR2 is MR + 1. % MR2 is the number of missionaries on the right side
-
-% Move 2 missionaries from right to left
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]) :-
-    ML2 is ML + 2, % ML2 is the number of missionaries left on the left side
-    MR2 is MR - 2. % MR2 is the number of missionaries on the right side
-
-% Move 1 missionary from right to left
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]) :-
-    ML2 is ML + 1, % ML2 is the number of missionaries left on the left side
-    MR2 is MR - 1. % MR2 is the number of missionaries on the right side
-
-% Move 2 cannibals from right to left
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]) :-
-    CL2 is CL + 2, % CL2 is the number of cannibals left on the left side
-    CR2 is CR - 2. % CR2 is the number of cannibals on the right side
-
-% Move 1 cannibal from right to left
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]) :-
-    CL2 is CL + 1, % CL2 is the number of cannibals left on the left side
-    CR2 is CR - 1. % CR2 is the number of cannibals on the right side
-
-% Move 1 missionary and 1 cannibal from right to left
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]) :-
-    CL2 is CL + 1, % CL2 is the number of cannibals left on the left side
-    CR2 is CR - 1, % CR2 is the number of cannibals on the right side
-    ML2 is ML + 1, % ML2 is the number of missionaries left on the left side
-    MR2 is MR - 1. % MR2 is the number of missionaries on the right side
-
-% This predicate is used to print the solution.
-% It is a recursive function that prints each state of the solution from the end to the beginning.
-
-% Base case: If the list is empty, do nothing.
-printSolution([]).
-
-% Recursive case: If the list is not empty,
-% recursively call printSolution on the tail of the list (T),
-% then print the head of the list (H).
-printSolution([H|T]) :-
-    printSolution(T),  % Recursive call with the tail of the list
-    write(H), nl.  % Print the head of the list and a newline
-
-% Solve the problem
-solve([CL,ML,left,CR,MR],[CL,ML,left,CR,MR],_,Solution,Solution).
-solve(State1,State2,Visited,Acc,Solution) :-
-    move(State1,State3),
-    valid(State3),
-    not(member(State3,Visited)),
-    solve(State3,State2,[State3|Visited],[State3|Acc],Solution).
-
-% Solve the problem
-solve(Start,Solution) :-
-    goal(Goal),
-    solve(Start,Goal,[Start],[],Solution).
-
-% Run the program
-run :-
-    start(Start),
-    solve(Start,Solution),
-    printSolution(Solution).
+legal_moves((CL,ML,_,CR,MR),(CL2,ML2,_,CR2,MR2)) :-
+    ML>=0, % Check if missionaries on state 1 are greater than or equal to 0
+	ML2>=0, % Check if missionaries on state 2 are greater than or equal to 0
+    CL>=0, % Check if cannibals on state 1 is greater than or equal to 0
+	CL2>=0, % Check if cannibals on state 2 is greater than or equal to 0
+    MR>=0, % Check if missionaries on state 1 are greater than or equal to 0
+	MR2>=0, % Check if missionaries state 2 are greater than or equal to 0
+    CR>=0, %  Check if cannibals on state 1 are greater than or equal to 0
+	CR2>=0, %  Check if cannibals on state 2 are greater than or equal to 0
+    (ML>=CL ; ML=0), % Check if there are no more cannibals than missionaries on the 1 state or if there are no missionaries on the 1 state
+    (ML2>=CL2 ; ML2=0), % Check if there are no more cannibals than missionaries on the 2 state or if there are no missionaries on the 2 state
+    (MR>=CR ; MR=0), % Check if there are no more cannibals than missionaries on the 1 state or if there are no missionaries on the 1 state
+    (MR2>=CR2 ; MR2=0). % Check if there are no more cannibals than missionaries on the 2 state or if there are no missionaries on the 2 state
 
 
-% Output:
-% [3,3,left,0,0]
-% [3,1,right,0,2]
-% [3,2,left,0,1]
-% [3,0,right,0,3]
-% [3,1,left,0,2]
-% [1,1,right,2,2]
-% [2,2,left,1,1]
-% [2,0,right,1,3]
-% [3,0,left,0,3]
-% [1,0,right,2,3]
-% [1,1,left,2,2]
-% [0,0,right,3,3]
+path(Ini, Ini, _, []).
 
+path(Ini, Fin, Visited, [move(M, C, Dir)|Path]):-
+move(M, C, Dir),
+mov(move(M, C, Dir), Ini, Aux),
+\+ not_valid(Aux),
+  \+ member(Aux, Visited),
+path(Aux, Fin, [Aux|Visited], Path).	 
+
+:- path(state(3,3, left), state(0,0, right), [state(3,3, left)], Path), write(Path), nl, fail.
