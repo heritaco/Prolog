@@ -1,137 +1,65 @@
-% Rules:
+% 1. Movements
 
-% Two missionaries cross from the left bank to the right bank:
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]):- % Two missionaries cross from the left bank to the right bank.
-    CL2 is CL,   % Cannibals on state 2 is equal to cannibals on state 1
-    ML2 is ML-2,  % Decrease the number of missionaries on the left bank by 2
-    CR2 is CR, % Cannibals on state 2 is equal to cannibals on state 1
-    MR2 is MR+2,  % Increase the number of missionaries on the right bank by 2
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
+% move is the functino
+% valid_move is the function that will give us the valid moves view point 2
+% state is the function that will give us the first state and the final state
 
-% Two cannibals cross from the left bank to the right bank:
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]):- % Two cannibals cross from the left bank to the right bank.
-    CL2 is CL-2, % Decrease the number of cannibals on the left bank by 2
-    ML2 is ML, % Missioners on state 2 is equal to missionaries on state 1
-    CR2 is CR+2, % Increase the number of cannibals on the right bank by 2
-    MR2 is MR, % Missioners on state 2 is equal to missionaries on state 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One missionary and one cannibal cross from the left bank to the right bank.
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]):-
-    CL2 is CL-1, % Decrease the number of cannibals on the left bank by 1
-    ML2 is ML-1, % Decrease the number of missionaries on the left bank by 1
-    CR2 is CR+1, % Increase the number of cannibals on the right bank by 1
-    MR2 is MR+1, % Increase the number of missionaries on the right bank by 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One missionary crosses from the left bank to the right bank:
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]):- % One missionary crosses from the left bank to the right bank.
-    CL2 is CL, % Cannibals on state 2 is equal to cannibals on state 1
-    ML2 is ML-1, % Decrease the number of missionaries on the left bank by 1
-    CR2 is CR, % Cannibals on state 2 is equal to cannibals on state 1
-    MR2 is MR+1, % Increase the number of missionaries on the right bank by 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One cannibal crosses from the left bank to the right bank:
-move([CL,ML,left,CR,MR],[CL2,ML2,right,CR2,MR2]):- % One cannibal crosses from the left bank to the right bank.
-    CL2 is CL-1, % Decrease the number of cannibals on the left bank by 1
-    ML2 is ML, % Missioners on state 2 is equal to missionaries on state 1
-    CR2 is CR+1, % Increase the number of cannibals on the right bank by 1
-    MR2 is MR, % Missioners on state 2 is equal to missionaries on state 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% Two missionaries cross from the right bank to the left bank:
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]):- % Two missionaries cross from the right bank to the left bank.
-    CL2 is CL, % Cannibals on state 2 is equal to cannibals on state 1
-    ML2 is ML+2, % Increase the number of missionaries on the left bank by 2
-    CR2 is CR, % Cannibals on state 2 is equal to cannibals on state 1
-    MR2 is MR-2, % Decrease the number of missionaries on the right bank by 2
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% Two cannibals cross from the right bank to the left bank:
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]):- % Two cannibals cross from the right bank to the left bank.
-    CL2 is CL+2, % Increase the number of cannibals on the left bank by 2
-    ML2 is ML, % Missioners on state 2 is equal to missionaries on state 1
-    CR2 is CR-2, % Decrease the number of cannibals on the right bank by 2
-    MR2 is MR, % Missioners on state 2 is equal to missionaries on state 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One missionary and one cannibal cross from the right bank to the left bank:
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]):- % One missionary and one cannibal cross from the right bank to the left bank.
-    CL2 is CL+1, % Increase the number of cannibals on the left bank by 1
-    ML2 is ML+1, % Increase the number of missionaries on the left bank by 1
-    CR2 is CR-1, % Decrease the number of cannibals on the right bank by 1
-    MR2 is MR-1, % Decrease the number of missionaries on the right bank by 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One missionary crosses from the right bank to the left bank:
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]):- % One missionary crosses from the right bank to the left bank.
-    CL2 is CL, % Cannibals on state 2 is equal to cannibals on state 1
-    ML2 is ML+1, % Increase the number of missionaries on the left bank by 1
-    CR2 is CL, % Cannibals on state 2 is equal to cannibals on state 1
-    MR2 is MR-1, % Decrease the number of missionaries on the right bank by 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% One cannibal crosses from the right bank to the left bank:
-move([CL,ML,right,CR,MR],[CL2,ML2,left,CR2,MR2]):- % One cannibal crosses from the right bank to the left bank.
-    CL2 is CL+1, % Increase the number of cannibals on the left bank by 1
-    ML2 is ML, % Missioners on state 2 is equal to missionaries on state 1
-    CR2 is CR-1, % Decrease the number of cannibals on the right bank by 1
-    MR2 is MR, % Missioners on state 2 is equal to missionaries on state 1
-    legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]). % Check if the resulting state is legal
-
-% A state is legal if there are no negative numbers of people, and if there are no more cannibals than missionaries on either bank of the river.
-legal_moves([CL,ML,_,CR,MR],[CL2,ML2,_,CR2,MR2]) :-
-    ML>=0, % Check if missionaries on state 1 are greater than or equal to 0
-	ML2>=0, % Check if missionaries on state 2 are greater than or equal to 0
-    CL>=0, % Check if cannibals on state 1 is greater than or equal to 0
-	CL2>=0, % Check if cannibals on state 2 is greater than or equal to 0
-    MR>=0, % Check if missionaries on state 1 are greater than or equal to 0
-	MR2>=0, % Check if missionaries state 2 are greater than or equal to 0
-    CR>=0, %  Check if cannibals on state 1 are greater than or equal to 0
-	CR2>=0, %  Check if cannibals on state 2 are greater than or equal to 0
-    (ML>=CL ; ML=0), % Check if there are no more cannibals than missionaries on the 1 state or if there are no missionaries on the 1 state
-    (ML2>=CL2 ; ML2=0), % Check if there are no more cannibals than missionaries on the 2 state or if there are no missionaries on the 2 state
-    (MR>=CR ; MR=0), % Check if there are no more cannibals than missionaries on the 1 state or if there are no missionaries on the 1 state
-    (MR2>=CR2 ; MR2=0). % Check if there are no more cannibals than missionaries on the 2 state or if there are no missionaries on the 2 state
-
-
-% recursive call to path
-path([CL1,ML1,B1,CR1,MR1], % current state
-	[CL2,ML2,B2,CR2,MR2], % goal state      
-	Explored, % list of explored states (initially containing only the start state)
-    MovesList) :- % list of moves (initially empty)
-		    move([CL1,ML1,B1,CR1,MR1], [CL3,ML3,B3,CR3,MR3]), % move from the current state to the next state  
-		    not(member([CL3,ML3,B3,CR3,MR3], Explored)), % check if the next state is not in the list of explored states (to avoid infinite loops)
-		    path([CL3,ML3,B3,CR3,MR3], % recursively call path with the next state as the current state 
-			[CL2,ML2,B2,CR2,MR2], % goal state 
-			[[CL3,ML3,B3,CR3,MR3]|Explored], % add the next state to the list of explored states
-			[ [[CL3,ML3,B3,CR3,MR3], % add the next state to the list of moves 
-			[CL1,ML1,B1,CR1,MR1]] | MovesList ]). % recursively call path with the next state as the current state
-
-
-path(InitialState, % current state 
-    InitialState, % goal state 
-    _, % list of explored states (not needed here) 
-    MovesList):- % list of moves (initially empty) 
-	        output(MovesList). % print the list of moves if the current state is the goal state (the list of moves is reversed) 
-
-
-describe_move([CL1,ML1,_,CR1,MR1], [CL2,ML2,_,CR2,MR2]) :- % describe the move from the current state to the next state
-    CCL is CL1 - CL2, % compute the difference between the number of cannibals on the left bank of the river in the current state and the next state
-    MML is ML1 - ML2, % compute the difference between the number of missionaries on the left bank of the river in the current state and the next state
-    Cannibalss is abs(CCL), % compute the absolute value 
-    Missionerss is abs(MML), % compute the absolute value 
-    (CCL > 0 -> format('move ~w cannibals from left to right, ', [Cannibalss]) ; true), % print the number of cannibals moved from the left bank to the right bank if the number of cannibals moved from the left bank to the right bank is greater than 0
-    (MML > 0 -> format('move ~w missionaries from left to right, ', [Missionerss]) ; true), % print the number of missionaries moved from the left bank to the right bank if the number of missionaries moved from the left bank to the right bank is greater than 0
-    (CCL < 0 -> format('move ~w cannibals from right to left, ', [Cannibalss]) ; true), % print the number of cannibals moved from the right bank to the left bank if the number of cannibals moved from the right bank to the left bank is greater than 0
-    (MML < 0 -> format('move ~w missionaries from right to left, ', [Missionerss]) ; true), % print the number of missionaries moved from the right bank to the left bank if the number of missionaries moved from the right bank to the left bank is greater than 0
-    nl. % print a new line
-            
-output([]) :- write('c:'),nl . % print a new line if the list of moves is empty
-            
-output([[A,B]|MovesList]) :- % print the list of moves
-    output(MovesList), % recursively call output with the tail of the list of moves
-    describe_move(B, A). % describe the move from the current state to the next state
-
- :- path([3,3,left,0,0],[0,0,right,3,3],[3,3,left,0,0],_). % call path with the start state, the goal state, and the list of explored states (initially containing only the start state), list of mobves (initially empty)
+% move from left to right
+move(valid_move(CM, MM, right), state(CL1, ML1, left), state(CL2, ML2, right)):-
+    ML2 is ML1 - MM, % ML2 is the number of missionaires in the right side, ML is the number of missionaires in the left side, MM is the number of missionaires that we want to move
+    ML2 >= 0, % ML2 is greater or equal to 0
+    ML2 =< 3, % ML2 is less or equal to 3
+    CL2 is CL1 - CM, % CL2 is the number of cannibals in the right side, CL is the number of cannibals in the left side, CM is the number of cannibals that we want to move
+    CL2 >= 0, 
+    CL2 =< 3. % CL2 is the number of cannibals in the right side
+  
+  % move from right to left
+  move(valid_move(CM, MM, left), state(CL1, ML1, right), state(CL2, ML2, left)):- 
+      ML2 is ML1 + MM, % ML2 is the number of missionaires in the left side 
+      ML2 >= 0, % ML2 is greater or equal to 0
+      ML2 =< 3, % ML2 is the number of missionaires in the left side 
+      CL2 is CL1+ CM, % CL2 is the number of cannibals in the left side
+      CL2 >= 0, % CL2 is greater or equal to 0
+      CL2 =< 3. % CL2 is the number of cannibals in the left side
+    
+  % 2. Valid moves
+  valid_move(2,0,_). % move two cannibals
+  valid_move(0,2,_). % move two missionaires
+  valid_move(1,0,_). % move one cannibal
+  valid_move(0,1,_). % move one missionaire
+  valid_move(1,1,_). % move one missionaire and one cannibal
+    
+  % 3. Not valid states
+  not_valid(state(3,2, _)). % 3 cannibals and 2 missionaires
+  not_valid(state(3,1, _)). % 3 cannibals and 1 missionaires
+  not_valid(state(2,1, _)). % 2 cannibals and 1 missionaires
+  not_valid(state(1,2, _)). % 1 cannibal and 2 missionaires, because the 2 cannibals will eat the missionair
+  not_valid(state(0,1, _)). % 0 cannibals and 1 missionaires, because the 3 cannibals will eat the 2 missionair
+  not_valid(state(0,2, _)). % 0 cannibals and 2 missionaires, because the 3 cannibals will eat the missionair
+    
+  % 4. Path to the solution
+  path(InitialState, InitialState, _, []). % path win when the initial state is equal to the final state
+  %path(InitialState, FinalState, VisitedStates, [move(C, M, Direction)|Path])
+  % InitialState is the initial state
+  % FinalState is the initial state, meaning that we won
+  % VisitedStates is the list of visited states
+  % [move(C, M, Direction)|Path] is the list of movements that we need to do to get to the final state, we won we dont need to do any movement
+  
+  % 4.1 Recursive formula
+  path(InitialState, FinalState, VisitedStates, [move(Cannibal, Missioner, Direction)|Path]):- % Path(Initial state, Final state, Visited states, Path)
+    % move(C, M, Direction) is the movement that we need to do to get to the final state, it is a list of movements that we need to do to get to the final state
+    % Path is the list of movements that we need to do to get to the final state
+    valid_move(Cannibal, Missioner, Direction), % That they are only valid moves 
+    move(valid_move(Cannibal, Missioner, Direction), InitialState, TemporalState), % That they are valid moves from the initial state to the temp state 
+    \+ not_valid(TemporalState), % That they arent not valid moves
+    \+ member(TemporalState, VisitedStates), % That they arent visited states in the list of temporal states
+    path(TemporalState, FinalState, [TemporalState|VisitedStates], Path). % Recursive call to the path function
+    
+  solve:- path(state(3,3, left), state(0,0, right), [state(3,3, left)], Path), write(Path), nl.
+  % path is the function that will give us the solution to the problem
+  % state(3,3, left) is the initial state
+  % state(0,0, right) is the final state
+  % [state(3,3, left)] is the list of visited states (initial state)
+  % Path is the list of movements that we need to do to get to the final state
+  % write(Path) is the function that will print the solution
+  % nl is the function that will print a new line
