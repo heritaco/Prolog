@@ -44,7 +44,7 @@ path(InitialState, InitialState, _, []). % path win when the initial state is eq
 % FinalState is the initial state, meaning that we won
 % VisitedStates is the list of visited states
 % [move(C, M, Direction)|Path] is the list of movements that we need to do to get to the final state, we won we dont need to do any movement
-  
+  /*
 % 4.1 Recursive formula
 path(InitialState, FinalState, VisitedStates, [move(Cannibal, Missioner, Direction)|Path]):- % Path(Initial state, Final state, Visited states, Path)
     % move(C, M, Direction) is the movement that we need to do to get to the final state, it is a list of movements that we need to do to get to the final state
@@ -54,8 +54,17 @@ path(InitialState, FinalState, VisitedStates, [move(Cannibal, Missioner, Directi
     \+ not_valid(TemporalState), % That they arent not valid moves
     \+ member(TemporalState, VisitedStates), % That they arent visited states in the list of temporal 
     path(TemporalState, FinalState, [TemporalState|VisitedStates], Path), % recursive step, saving the temporal states in the list of visited states
-    write(move(Cannibal, Missioner, Direction)), nl. % Print the move and a new line
-    
+    format('Move ~w cannibal(s) and ~w missioner(s) to the ~w', [Cannibal, Missioner, Direction]), nl. % Print the move and a new line
+  */
+
+path(InitialState, FinalState, VisitedStates, [move(Cannibal, Missioner, Direction)|Path]):-
+    valid_move(Cannibal, Missioner, Direction),
+    move(valid_move(Cannibal, Missioner, Direction), InitialState, TemporalState),
+    \+ not_valid(TemporalState),
+    \+ member(TemporalState, VisitedStates),
+    path(TemporalState, FinalState, [TemporalState|VisitedStates], Path),
+    format('Move ~w cannibals and ~w missioners to the ~w', [Cannibal, Missioner, Direction]), nl.
+
 initial_state(state(3,3, left)). % initial state is 3 cannibals and 3 missionaries in the left side
 final_state(state(0,0, right)). % final state is 0 cannibals and 0 missionaries that go from the left to the right side
 
